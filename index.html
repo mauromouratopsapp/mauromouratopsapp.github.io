@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html class="no-js" lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <title>API TopSapp</title>
+    <meta name="description" content="">
+    <meta name="author" content="ticlekiwi">
+
+    <meta http-equiv="cleartype" content="on">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css/hightlightjs-dark.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,500|Source+Code+Pro:300" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css" media="all">
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+<body>
+    <div class="left-menu">
+        <div class="content-logo">
+            <img src="images/topsapp.png" height="32" />
+            <span>Documentação API</span>
+        </div>
+        <div class="content-menu">
+            <ul>
+                <li class="scroll-to-link active" data-target="get-started">
+                    <a>Introdução</a>
+                </li>
+                <li class="scroll-to-link" data-target="base-url">
+                    <a>URL Base</a>
+                </li>
+                <li class="scroll-to-link" data-target="sessao">
+                    <a>Login</a>
+                </li>
+                <li class="scroll-to-link" data-target="errors">
+                    <a>Erros</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="content-page">
+        <div class="content-code"></div>
+        <div class="content">
+            <div class="overflow-hidden content-section" id="content-get-started">
+                <h1 id="get-started">Introdução</h1>
+                <p>Este documento define as formas de acesso remoto aos serviços do TopSapp.<br>O TopSapp é um produto
+                    do Grupo MultiWare Tecnologia, com sede no município de Sinop/MT, que está pronto para te levar a
+                    vanguarda da tecnologia em Gestão de Telecomunicação,
+                    desde o ano de 2001, te levando com rapidez e segurança exatamente para onde você quer chegar.<br> O
+                    produto TOPSAPP, além de auxiliar na administração das empresas de telecomunicações,
+                    vem contribuindo com ferramentas que ajudam no melhor desempenho das redes de
+                    interatividade com os seus usuários finais.
+                </p>
+                <p>
+                    Para utilizar essa API, será necessário ter o módulo <strong>contratado</strong>. Por gentileza,
+                    entre em contato com nosso comercial <a
+                        href="mailto:comercial@topsapp.com.br">comercial@topsapp.com.br</a> ou <a
+                        href="mailto:comercial1@topsapp.com.br">comercial1@topsapp.com.br</a>
+                </p>
+                <p>
+                    Esta API é REST e fornece os resultados em JSON, sendo adequada a todos os tipos de usuários, de
+                    baixo a alto volume, permitindo a consulta e utilização de diversas opções disponíveis no sistema.
+                </p>
+            </div>
+            <div class="overflow-hidden content-section" id="content-base-url">
+                <h2 id="base-url">URL Base</h2>
+                <pre><code class="bash">
+# Substitua "iplinuxluatpanel" pelo o endereço de acesso do seu servidor.
+https://iplinuxluatpanel:9910/Login
+                </code></pre>
+                <p>
+                    O Endpoint base dependerá de cada servidor e será construído do seguinte modo:<br>
+                    <code class="higlighted">https://iplinuxluatpanel:9910/</code>
+                </p>
+                <br>
+            </div>
+            <div class="overflow-hidden content-section" id="content-sessao">
+                <h2 id="sessao">Login</h2>
+                <pre><code class="bash">
+# Exemplo em curl
+curl -X POST -k -F 'usuario=xxx' -F 'senha=xxx' https://iplinuxluatpanel:9910/Login
+-F 'identificador=xxx'
+                </code></pre>
+                <p>
+                    Realiza o login do usuário, retornando um código de sessão, que será desativada após 60 minutos de
+                    inatividade.<br>
+                    <code class="higlighted">https://iplinuxluatpanel:9910/Login</code>
+                </p>
+                <br>
+                <pre><code class="json">
+Resultado exemplo :
+{
+    "resultado":true,
+    "codigo":"0",
+    "msg":"Login realizado com sucesso", 
+    "sessao":"f6b113b19eb70373010d0e5092467f3d", 
+    "id_usuario":15,
+    "nome_usuario":"TOPSAPP API"
+}
+
+                </code></pre>
+                <h4>PARÂMETROS</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Campo</th>
+                            <th>Tipo</th>
+                            <th>Padrão</th>
+                            <th>Obrigatório</th>
+                            <th>Descrição</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>usuario</td>
+                            <td>String</td>
+                            <td>-</td>
+                            <td>Sim</td>
+                            <td>Operador de acesso do sistema TopSapp</td>
+                        </tr>
+                        <tr>
+                            <td>senha</td>
+                            <td>String</td>
+                            <td>-</td>
+                            <td>Sim</td>
+                            <td>Senha de acesso</td>
+                        </tr>
+                        <tr>
+                            <td>identificador</td>
+                            <td>String</td>
+                            <td>-</td>
+                            <td>Sim</td>
+                            <td>
+                                Identificador de origem do acesso que deverá estar liberado no TopSapp para conseguir
+                                consumir a API.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="overflow-hidden content-section" id="content-errors">
+                <h2 id="errors">Erros</h2>
+                <p>
+                    Possíveis erros e seus detalhes.
+                </p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Erro</th>
+                            <th>Motivo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>100</td>
+                            <td>
+                                Não foi possível identificar sua sessão.
+                                Realize o login novamente.
+                            </td>
+                            <td>A sessão informada não é válida ou o tempo máximo de inatividade (60 minutos) foi
+                                atingido.</td>
+                        </tr>
+                        <tr>
+                            <td>101</td>
+                            <td>
+                                Erro ao realizar o login.
+                            </td>
+                            <td>
+                                O usuário e a senha não conferem com nenhum cadastrado no sistema.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>102</td>
+                            <td>
+                                O dispositivo deve ser liberado para acessar o aplicativo.
+                            </td>
+                            <td>
+                                O identificador utilizado não está liberado no sistema.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="content-code"></div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
